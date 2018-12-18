@@ -65,6 +65,7 @@ public class ChessView extends UI {
     private Vibrator _vibrator;
     private ImageView _imgStatusGuess;
     private JSONArray _jArrayECO;
+    private StringBuilder result = new StringBuilder(" ");
 
     // keep track of captured pieces
     private CapturedImageView[][] _arrImageCaptured;
@@ -396,9 +397,11 @@ public class ChessView extends UI {
 
         Button butNewGame = (Button) _parent.findViewById(R.id.ButtonNewGame);
         if (butNewGame != null) {
+
             //butNewGame.setFocusable(false);
             butNewGame.setOnClickListener(new OnClickListener() {
                 public void onClick(View arg0) {
+                    result = new StringBuilder(" ");
                     Intent intent = new Intent();
                     intent.setClass(_parent, options.class);
                     intent.putExtra("requestCode", main.REQUEST_NEWGAME);
@@ -529,6 +532,7 @@ public class ChessView extends UI {
         _tvTitleMe = (TextView) _parent.findViewById(R.id.TextViewTitle);
         _tvTitleOpp = (TextView) _parent.findViewById(R.id.TextViewTopTitle);
         _tvEngine = (TextView) _parent.findViewById(R.id.TextViewEngine);
+
         //_tvEngineValue = (TextView)_parent.findViewById(R.id.TextViewEngineValue);
 
         _imgStatusGuess = (ImageView) _parent.findViewById(R.id.ImageStatusGuess);
@@ -1066,7 +1070,14 @@ public class ChessView extends UI {
     @Override
     public void setEngineMessage(String sText) {
         if (_tvEngine != null) {
-            _tvEngine.setText(sText);
+            _tvEngine.setText(sText + sText.indexOf('\n'));
+            if(sText.indexOf('\n') == -1){
+                result.append("0 ");
+            }
+            else if(sText.indexOf('\n') == 16){
+                result.append(sText.substring(17,sText.length()) + " ");
+            }
+            System.out.println(" amazing " + result.toString() + " value " + _jni.getBoardValue());
         }
     }
 
@@ -1576,6 +1587,11 @@ public class ChessView extends UI {
         sMove = sMove.replace("O-O", "Castle King Side");
 
         sMove = sMove.replace("+", " check");
+
+        if(sMove.contains("#")){
+
+        }
+
         sMove = sMove.replace("#", " checkmate");
 
         if (Move.isEP(move)) {
