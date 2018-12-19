@@ -57,7 +57,7 @@
         <activity android:name=".ColorPickerActivity" />
         <activity
             android:name=".HtmlActivity"
-            android:label="@string/app_name_help"></activity>
+            android:label="@string/app_name_help" />
         <activity
             android:name=".main"
             android:label="@string/app_name_play">
@@ -68,8 +68,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
-
-
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -133,7 +131,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".GamesListView"
@@ -243,7 +240,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
-
         </activity>
 
         <!--
@@ -263,7 +259,8 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".Report"></activity>
+        <activity android:name=".Report" />
+        <activity android:name=".boomAnalysisMenu" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

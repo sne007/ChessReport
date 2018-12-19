@@ -4,6 +4,7 @@ import jwtc.chess.*;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -34,12 +35,16 @@ import android.view.GestureDetector.OnGestureListener;
 import android.view.GestureDetector;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
 import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
@@ -72,7 +77,6 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
     public static final int REQUEST_FROM_QR_CODE = 5;
 
     private GestureDetector _gestureDetector;
-    private BoomMenuButton btn_generateReport;
     private ArrayList<Pair> piecesAndButtons = new ArrayList<>();
 
     private boolean _skipReturn;
@@ -84,11 +88,11 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
         _uriNotification = null;
         _ringNotification = null;
 
-        setContentView(R.layout.main);
 
 
         this.makeActionOverflowMenuShown();
@@ -107,35 +111,21 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
 
         _chessView = new ChessView(this);
         _keyboardBuffer = "";
-
         _lGameID = 0;
         _fGameRating = 2.5F;
         _dlgSave = null;
 
         _gestureDetector = new GestureDetector(this, this);
 
-        btn_generateReport = (BoomMenuButton) findViewById(R.id.btn_generateReport);
-        assert btn_generateReport != null;
-        btn_generateReport.setButtonEnum(ButtonEnum.Ham);
-        btn_generateReport.setPiecePlaceEnum(PiecePlaceEnum.HAM_1);
-        btn_generateReport.setButtonPlaceEnum(ButtonPlaceEnum.HAM_1);
-        btn_generateReport.addBuilder(BuilderManager.getHamButtonBuilder());
-
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        assert listView != null;
-        listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1,
-                BuilderManager.getHamButtonData(piecesAndButtons)));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Button b = findViewById(R.id.generateButton);
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                btn_generateReport.setPiecePlaceEnum((PiecePlaceEnum) piecesAndButtons.get(position).first);
-                btn_generateReport.setButtonPlaceEnum((ButtonPlaceEnum) piecesAndButtons.get(position).second);
-                btn_generateReport.clearBuilders();
-                for (int i = 0; i < btn_generateReport.getPiecePlaceEnum().pieceNumber(); i++)
-                    btn_generateReport.addBuilder(BuilderManager.getHamButtonBuilder());
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(main.this, boomAnalysisMenu.class);
+                startActivity(intent);
             }
         });
-
     }
 
     @Override

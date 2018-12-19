@@ -25,6 +25,8 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.*;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow.LayoutParams;
 
@@ -62,7 +64,7 @@ public class ChessViewBase{
 		Log.i("ChessViewBase", "init() called");
 		_flippedBoard = false;
 
-		_mainLayout = (RelativeLayout)_activity.findViewById(R.id.LayoutMain);
+		_mainLayout = _activity.findViewById(R.id.LayoutMain);
 
 		_arrImages[0] = (ChessImageView)_activity.findViewById(R.id.a8);
 		_arrImages[1] = (ChessImageView)_activity.findViewById(R.id.b8);

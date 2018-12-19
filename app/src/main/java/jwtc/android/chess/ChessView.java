@@ -54,7 +54,6 @@ public class ChessView extends UI {
     public static final String TAG = "ChessView";
 
     private ChessViewBase _view;
-    private BoomMenuButton btn_generateReport;
     private ChessActivity _parent;
     private ImageButton _butPlay, butQuickSoundOn, butQuickSoundOff;
     private ViewAnimator _viewAnimator;
@@ -140,19 +139,6 @@ public class ChessView extends UI {
         _parent = (ChessActivity) activity;
         _view = new ChessViewBase(activity);
 
-        btn_generateReport = _parent.findViewById(R.id.btn_generateReport);
-//        btn_generateReport.setBackgroundColor(Color.GREEN);
-/*
-        btn_generateReport.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(_parent, Report.class);
-                _parent.startActivityForResult(intent, main.REQUEST_OPEN);
-            }
-        });
-*/
         _playMode = HUMAN_PC;
         _bAutoFlip = false;
         _bPlayAsBlack = false;
@@ -216,6 +202,7 @@ public class ChessView extends UI {
 
         _jArrayECO = null;
         // below was previously in init() method
+
         _hScrollHistory = (HorizontalScrollView) _parent.findViewById(R.id.HScrollViewHistory);
         _layoutHistory = (RelativeLayout) _parent.findViewById(R.id.LayoutHistory);
         _vScrollHistory = (ScrollView) _parent.findViewById(R.id.VScrollViewHistory);
@@ -313,109 +300,6 @@ public class ChessView extends UI {
             butNext.setOnClickListener(oclFf);
             butNext.setOnLongClickListener(olclFf);
         }
-        /*
-		ImageButton butNextGuess = (ImageButton)_parent.findViewById(R.id.ButtonNextGuess);
-		if(butNextGuess != null){
-			//butNextGuess.setFocusable(false);
-			butNextGuess.setOnClickListener(oclFf);
-		}
-		*/
-		/*
-		ImageButton butFastForward = (ImageButton)_parent.findViewById(R.id.ButtonFastForward);
-		if(butFastForward != null){
-			//butFastForward.setFocusable(false);
-			butFastForward.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
-	        		if(m_bActive){
-	        			jumptoMove(_arrPGN.size());
-	        			updateState();
-	        			scrollToEnd();
-	        		}
-	        	}
-	    	});
-		}
-		ImageButton butRewind = (ImageButton)_parent.findViewById(R.id.ButtonRewind);
-		if(butRewind != null){
-			//butRewind.setFocusable(false);
-			butRewind.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
-	        		if(m_bActive){
-	        			jumptoMove(1);
-	        			updateState();
-	        			scrollToStart();
-	        		}
-	        	}
-	    	});
-		}
-		ImageButton butBack = (ImageButton)_parent.findViewById(R.id.ButtonBack);
-		if(butBack != null){
-			butBack.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
-	        		_parent.finish();
-	        	}
-	    	});
-		}
-		ImageButton butMenu = (ImageButton)_parent.findViewById(R.id.ButtonMenu);
-		if(butMenu != null){
-			butMenu.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
-	        		_parent.showMenu();
-	        	}
-	    	});
-		}
-		*/
-		
-		/*
-		ImageButton butClockMenu = (ImageButton)_parent.findViewById(R.id.ButtonClockMenu);
-		if(butClockMenu != null){
-			//butClockMenu.setFocusable(false);
-			butClockMenu.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
-	        		final String[] itemsMenu = new String[]{"no clock", "2 minutes", "5 minutes", "10 minutes", "30 minutes", "60 minutes"};
-	    			
-	        		AlertDialog.Builder builder = new AlertDialog.Builder(_parent);
-	    			builder.setTitle(_parent.getString(R.string.title_menu));
-	    			
-	    			builder.setItems(itemsMenu, new DialogInterface.OnClickListener() {
-	    			    public void onClick(DialogInterface dialog, int item) {
-	    			        dialog.dismiss();
-	    			        if(item == 0)
-	    			        	_lClockTotal = 0;
-	    			        else if(item == 1)
-	    			        	_lClockTotal = 120000;
-	    			        else if(item == 2)
-	    			        	_lClockTotal = 300000;
-	    			        else if(item == 3)
-	    			        	_lClockTotal = 600000;
-	    			        else if(item == 4)
-	    			        	_lClockTotal = 1800000;
-	    			        else if(item == 5)
-	    			        	_lClockTotal = 3600000;
-	    			        resetTimer();
-	    			    }
-	    			});
-	    			AlertDialog alert = builder.create();
-	    			alert.show();
-	        	}
-			});
-		}
-		*/
-		/*
-		ImageButton butClockPause = (ImageButton)_parent.findViewById(R.id.ButtonClockPause);
-		if(butClockPause != null){
-			//butClockPause.setFocusable(false);
-			butClockPause.setOnClickListener(new OnClickListener() {
-	        	public void onClick(View arg0) {
-	        		View v = (View)_parent.findViewById(R.id.includeboard);
-	        		if(pauseOrContinueTimer()){
-	        			v.setVisibility(View.INVISIBLE);
-	        		} else {
-	        			v.setVisibility(View.VISIBLE);
-	        		}
-	        	}
-			});
-		}
-		*/
 
         Button butNewGame = (Button) _parent.findViewById(R.id.ButtonNewGame);
         if (butNewGame != null) {
@@ -436,7 +320,6 @@ public class ChessView extends UI {
         if (butShowMenu != null) {
             butShowMenu.setOnClickListener(new OnClickListener() {
                 public void onClick(View arg0) {
-
                     _parent.openOptionsMenu();
                 }
             });
@@ -447,7 +330,6 @@ public class ChessView extends UI {
             //butSaveGame.setFocusable(false);
             butSaveGame.setOnClickListener(new OnClickListener() {
                 public void onClick(View arg0) {
-
                     _parent.saveGame();
                 }
             });

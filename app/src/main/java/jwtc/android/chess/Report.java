@@ -14,23 +14,39 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Report extends DemoBase{
+public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener {
 
-    private PieChart chart;
+    private PieChart pieChart;
+    private BarChart barChart;
+    private SeekBar seekBarX;
+    private TextView tvX;
+
+    private List<BarEntry> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,40 +57,40 @@ public class Report extends DemoBase{
 
         setTitle("Your Report");
 
-        chart = findViewById(R.id.chart1);
-        chart.setBackgroundColor(Color.WHITE);
+        pieChart = findViewById(R.id.pieChart);
+        pieChart.setBackgroundColor(Color.WHITE);
 
         moveOffScreen();
 
-        chart.setUsePercentValues(true);
-        chart.getDescription().setEnabled(false);
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
 
-        chart.setCenterTextTypeface(tfLight);
-        chart.setCenterText(generateCenterSpannableText());
+        pieChart.setCenterTextTypeface(tfLight);
+        pieChart.setCenterText(generateCenterSpannableText());
 
-        chart.setDrawHoleEnabled(true);
-        chart.setHoleColor(Color.WHITE);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
 
-        chart.setTransparentCircleColor(Color.WHITE);
-        chart.setTransparentCircleAlpha(110);
+        pieChart.setTransparentCircleColor(Color.WHITE);
+        pieChart.setTransparentCircleAlpha(110);
 
-        chart.setHoleRadius(58f);
-        chart.setTransparentCircleRadius(61f);
+        pieChart.setHoleRadius(58f);
+        pieChart.setTransparentCircleRadius(61f);
 
-        chart.setDrawCenterText(true);
+        pieChart.setDrawCenterText(true);
 
-        chart.setRotationEnabled(false);
-        chart.setHighlightPerTapEnabled(true);
+        pieChart.setRotationEnabled(false);
+        pieChart.setHighlightPerTapEnabled(true);
 
-        chart.setMaxAngle(180f); // HALF CHART
-        chart.setRotationAngle(180f);
-        chart.setCenterTextOffset(0, -20);
+        pieChart.setMaxAngle(180f); // HALF CHART
+        pieChart.setRotationAngle(180f);
+        pieChart.setCenterTextOffset(0, -20);
 
         setData(4, 100);
 
-        chart.animateY(1400, Easing.EaseInOutQuad);
+        pieChart.animateY(1400, Easing.EaseInOutQuad);
 
-        Legend l = chart.getLegend();
+        Legend l = pieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -84,9 +100,74 @@ public class Report extends DemoBase{
         l.setYOffset(0f);
 
         // entry label styling
-        chart.setEntryLabelColor(Color.WHITE);
-        chart.setEntryLabelTypeface(tfRegular);
-        chart.setEntryLabelTextSize(12f);
+        pieChart.setEntryLabelColor(Color.WHITE);
+        pieChart.setEntryLabelTypeface(tfRegular);
+        pieChart.setEntryLabelTextSize(12f);
+
+
+/*
+        data = FileUtils.loadBarEntriesFromAssets(getAssets(), "othersine.txt");
+
+        tvX = findViewById(R.id.tvValueCount);
+
+        seekBarX = findViewById(R.id.seekbarValues);
+
+        barChart = findViewById(R.id.barChart);
+
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+
+        barChart.getDescription().setEnabled(false);
+
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        barChart.setMaxVisibleValueCount(60);
+
+        // scaling can now only be done on x- and y-axis separately
+        barChart.setPinchZoom(false);
+
+        // draw shadows for each bar that show the maximum value
+        // chart.setDrawBarShadow(true);
+
+        // chart.setDrawXLabels(false);
+
+        barChart.setDrawGridBackground(false);
+        // chart.setDrawYLabels(false);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setEnabled(false);
+
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setTypeface(tfLight);
+        leftAxis.setLabelCount(6, false);
+        leftAxis.setAxisMinimum(-2.5f);
+        leftAxis.setAxisMaximum(2.5f);
+        leftAxis.setGranularityEnabled(true);
+        leftAxis.setGranularity(0.1f);
+
+        YAxis rightAxis = barChart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setTypeface(tfLight);
+        rightAxis.setLabelCount(6, false);
+        rightAxis.setAxisMinimum(-2.5f);
+        rightAxis.setAxisMaximum(2.5f);
+        rightAxis.setGranularity(0.1f);
+
+        seekBarX.setOnSeekBarChangeListener(this);
+        seekBarX.setProgress(150); // set data
+
+        Legend legendBar = barChart.getLegend();
+        legendBar.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legendBar.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        legendBar.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legendBar.setDrawInside(false);
+        legendBar.setForm(Legend.LegendForm.SQUARE);
+        legendBar.setFormSize(9f);
+        legendBar.setTextSize(11f);
+        legendBar.setXEntrySpace(4f);
+
+        barChart.animateXY(1500, 1500);
+*/
     }
 
     private void setData(int count, float range) {
@@ -109,9 +190,38 @@ public class Report extends DemoBase{
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
         data.setValueTypeface(tfLight);
-        chart.setData(data);
+        pieChart.setData(data);
 
-        chart.invalidate();
+        pieChart.invalidate();
+    }
+    private void setData(int count) {
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            entries.add(data.get(i));
+        }
+
+        BarDataSet set;
+
+        if (barChart.getData() != null &&
+                barChart.getData().getDataSetCount() > 0) {
+            set = (BarDataSet) barChart.getData().getDataSetByIndex(0);
+            set.setValues(entries);
+            barChart.getData().notifyDataChanged();
+            barChart.notifyDataSetChanged();
+        } else {
+            set = new BarDataSet(entries, "Sinus Function");
+            set.setColor(Color.rgb(240, 120, 124));
+        }
+
+        BarData data = new BarData(set);
+        data.setValueTextSize(10f);
+        data.setValueTypeface(tfLight);
+        data.setDrawValues(false);
+        data.setBarWidth(0.8f);
+
+        barChart.setData(data);
     }
 
     private SpannableString generateCenterSpannableText() {
@@ -139,9 +249,9 @@ public class Report extends DemoBase{
         int offset = (int)(height * 0.65); /* percent to move */
 
         RelativeLayout.LayoutParams rlParams =
-                (RelativeLayout.LayoutParams) chart.getLayoutParams();
+                (RelativeLayout.LayoutParams) pieChart.getLayoutParams();
         rlParams.setMargins(0, 0, 0, -offset);
-        chart.setLayoutParams(rlParams);
+        pieChart.setLayoutParams(rlParams);
     }
 
     @Override
@@ -156,4 +266,19 @@ public class Report extends DemoBase{
 
     @Override
     public void saveToGallery() { /* Intentionally left empty */ }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }

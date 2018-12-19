@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:tools="http://schemas.android.com/tools"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/LayoutMain">
-	 <TableLayout android:id="@+id/LayoutTopTitle" 
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
+
+
+	<TableLayout android:id="@+id/LayoutTopTitle"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
 		>
 		<TableRow android:gravity="center_vertical">
 			<ViewSwitcher android:id="@+id/ImageTurnOpp"
 				android:layout_height="wrap_content" android:layout_width="wrap_content"
 				android:layout_marginLeft="8dip" android:layout_marginRight="8dip"
 			>
-				<ImageView 
+				<ImageView
 					android:src="@drawable/turnblack"
 					android:layout_height="wrap_content" android:layout_width="wrap_content"
 				/>
-				<ImageView 
+				<ImageView
 					android:src="@drawable/turnwhite"
 					android:layout_height="wrap_content" android:layout_width="wrap_content"
 				/>
 			</ViewSwitcher>
 			<TextView android:id="@+id/TextViewClockTimeOpp"
 				android:layout_height="wrap_content" android:layout_width="50dip"
-				android:text="00:00" 
+				android:text="00:00"
 				style="@style/MyNormalTextStyle"
 			/>
-			<TextView android:id="@+id/TextViewTopTitle" 
+			<TextView android:id="@+id/TextViewTopTitle"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				style="@style/MyNormalTextStyle"
 				android:text="Title..."
 			/>
 		</TableRow>
 	</TableLayout>
-	
+
 	<include
         layout="@layout/board"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_below="@id/LayoutTopTitle" 
+        android:layout_below="@id/LayoutTopTitle"
         android:id="@+id/includeboard"
      />
-	
-	<!-- 
-	<TextView android:layout_width="wrap_content" android:layout_height="320dip"
-		        android:id="@+id/includeboard" 
-		        android:layout_below="@id/LayoutTopTitle"/>
-	 -->	       
-        
-     <TableLayout android:id="@+id/LayoutBottomTitle" 
+
+
+
+     <TableLayout android:id="@+id/LayoutBottomTitle"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_below="@id/includeboard"
 		>
@@ -56,36 +55,36 @@
 			<ViewSwitcher android:id="@+id/ImageTurnMe"
 				android:layout_height="wrap_content" android:layout_width="wrap_content"
 				android:layout_marginLeft="8dip" android:layout_marginRight="8dip"
-			> 
-				<ImageView  
+			>
+				<ImageView
 					android:src="@drawable/turnblack"
 					android:layout_height="wrap_content" android:layout_width="wrap_content"
 				/>
-				<ImageView  
+				<ImageView
 					android:src="@drawable/turnwhite"
 					android:layout_height="wrap_content" android:layout_width="wrap_content"
 				/>
 			</ViewSwitcher>
 			<TextView android:id="@+id/TextViewClockTimeMe"
 					android:layout_height="wrap_content" android:layout_width="50dip"
-					android:text="00:00" 
-					style="@style/MyNormalTextStyle" 
+					android:text="00:00"
+					style="@style/MyNormalTextStyle"
 				/>
-			<TextView android:id="@+id/TextViewTitle" 
+			<TextView android:id="@+id/TextViewTitle"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				style="@style/MyNormalTextStyle"
 				android:text="Title..."
 			/>
 		</TableRow>
 	</TableLayout>
-    
+
 	<RelativeLayout
 		android:id="@+id/layoutMultiPurpose"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_below="@id/LayoutBottomTitle" android:gravity="center_vertical"
 	>
-	
-		<TableLayout android:id="@+id/LayoutPlayButtons" 
+
+		<TableLayout android:id="@+id/LayoutPlayButtons"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 		>
 			<TableRow
@@ -103,39 +102,40 @@
 					/>
 				<ImageButton android:id="@+id/ButtonSwitch" android:src="@drawable/navigation_expand"
 					android:layout_width="40dip" android:layout_height="40dip" android:scaleType="fitXY"
-					android:layout_margin="2dip" 
+					android:layout_margin="2dip"
 				/>
 				<Button android:text="@string/button_new" android:id="@+id/ButtonNewGame"
 					android:layout_width="wrap_content" android:layout_height="40dip" android:gravity="center"
-				    android:layout_margin="2dip" 
+				    android:layout_margin="2dip"
 				/>
 				<ImageButton android:id="@+id/ButtonOpen" android:src="@drawable/collections_collection"
 					android:layout_width="40dip" android:layout_height="40dip" android:scaleType="fitXY"
-					android:layout_margin="2dip" 
+					android:layout_margin="2dip"
 				/>
 				<ImageButton android:id="@+id/ButtonSave" android:src="@drawable/content_save"
 					android:layout_width="40dip" android:layout_height="40dip" android:scaleType="fitXY"
-					android:layout_margin="2dip" 
+					android:layout_margin="2dip"
 				/>
-				<ImageButton android:id="@+id/ButtonPrevious" android:src="@drawable/navigation_previous_item" 
+				<ImageButton android:id="@+id/ButtonPrevious" android:src="@drawable/navigation_previous_item"
 					android:layout_height="40dip" android:layout_width="40dip" android:scaleType="fitXY"
-					android:layout_margin="2dip" 
+					android:layout_margin="2dip"
 				/>
-				<ImageButton android:id="@+id/ButtonNext" android:src="@drawable/navigation_next_item" 
+				<ImageButton android:id="@+id/ButtonNext" android:src="@drawable/navigation_next_item"
 					android:layout_height="40dip" android:layout_width="40dip" android:scaleType="fitXY"
-					android:layout_margin="2dip"  
-				/>	
-				<ImageButton android:id="@+id/ButtonPlay" android:src="@drawable/av_play"  
+					android:layout_margin="2dip"
+				/>
+				<ImageButton android:id="@+id/ButtonPlay" android:src="@drawable/av_play"
 					android:layout_height="40dip" android:layout_width="40dip" android:scaleType="fitXY"
-					android:layout_margin="2dip" 
+					android:layout_margin="2dip"
 				/>
 				<ProgressBar android:id="@+id/ProgressBarPlay" android:layout_width="40dip" android:layout_height="40dip"
 					style="?android:attr/progressBarStyleLarge" android:visibility="gone"
-					android:layout_margin="2dip" 
+					android:layout_margin="2dip"
 				/>
 			</TableRow>
 		</TableLayout>
-		 
+
+
 		<ViewAnimator android:id="@+id/ViewAnimatorMain"
 			android:layout_below="@id/LayoutPlayButtons"
 			android:layout_width="fill_parent" android:layout_height="fill_parent"
@@ -150,7 +150,7 @@
 					android:layout_below="@id/TextViewEngine"
 				/>
 			</RelativeLayout>
-			<TableLayout  
+			<TableLayout
 				android:layout_width="fill_parent" android:layout_height="wrap_content"
 			>
 				<TableRow android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -160,7 +160,7 @@
 					<jwtc.android.chess.CapturedImageView android:id="@+id/ImageCapturedBlackBishop" style="@style/CaptureImageStyle" />
 					<jwtc.android.chess.CapturedImageView android:id="@+id/ImageCapturedBlackRook" style="@style/CaptureImageStyle" />
 					<jwtc.android.chess.CapturedImageView android:id="@+id/ImageCapturedBlackQueen" style="@style/CaptureImageStyle" />
-					 
+
                     <jwtc.android.chess.CapturedImageView android:id="@+id/ImageCapturedWhitePawn" style="@style/CaptureImageStyle" />
 					<jwtc.android.chess.CapturedImageView android:id="@+id/ImageCapturedWhiteKnight" style="@style/CaptureImageStyle" />
 					<jwtc.android.chess.CapturedImageView android:id="@+id/ImageCapturedWhiteBishop" style="@style/CaptureImageStyle" />
@@ -183,7 +183,7 @@
 					 <TextView android:id="@+id/TextViewCapturedBlackQueen"
 					 	style="@style/CaptureTextStyle"
 					 />
-					 
+
 					 <TextView android:id="@+id/TextViewCapturedWhitePawn"
 					 	style="@style/CaptureTextStyle"
 					 />
@@ -198,16 +198,16 @@
 					 />
 					 <TextView android:id="@+id/TextViewCapturedWhiteQueen"
 					 	style="@style/CaptureTextStyle"
-					 />		
+					 />
 				</TableRow>
 			</TableLayout>
-			
+
 			<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
 				<SeekBar android:id="@+id/SeekBarMain" android:layout_marginLeft="16dip" android:layout_marginRight="16dip"
 					android:layout_width="fill_parent" android:layout_height="40dip"
 				/>
 			</RelativeLayout>
-		
+
 			<HorizontalScrollView android:id="@+id/HScrollViewHistory"
 		    	android:layout_width="fill_parent" android:layout_height="40dip"
 				android:background="@color/bgColorMiddle" android:textColor="@color/textColor"
@@ -218,14 +218,14 @@
 				    android:layout_height="wrap_content"
 				/>
 			</HorizontalScrollView>
-			
+
 			<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:fadingEdge="none" android:padding="2dip"
 			>
 				<TextView android:id="@+id/TextViewAnnotate"
 					android:background="@color/bgColorLight" android:textColor="@color/textColorInverse"
 					android:padding="8dip"
-					android:layout_width="fill_parent" android:layout_height="wrap_content" 
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:minHeight="50dip"/>
 			</ScrollView>
 
@@ -235,7 +235,7 @@
 				<TableRow>
 					<ImageView android:id="@+id/ImageStatusGuess" android:src="@drawable/indicator_none"
 							android:layout_height="wrap_content" android:layout_width="wrap_content"
-							android:layout_margin="8dip" 
+							android:layout_margin="8dip"
 					/>
 					<Button android:id="@+id/ButtonHintGuess" android:text="hint" android:layout_width="wrap_content" android:layout_height="40dip"/>
 					<TextView android:id="@+id/TextViewGuess"
@@ -245,15 +245,15 @@
 					/>
 				</TableRow>
 			</TableLayout>
-			
+
 			<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:padding="2dip"
 			>
 			    <TableRow android:gravity="center">"
-			        <ImageButton android:id="@+id/ButtonBlindfoldLocations" android:src="@drawable/collections_view_as_grid" 
+			        <ImageButton android:id="@+id/ButtonBlindfoldLocations" android:src="@drawable/collections_view_as_grid"
 						android:layout_height="40dip" android:layout_width="40dip" android:scaleType="fitXY"
 					/>
-				    <ImageButton android:id="@+id/ButtonBlindfoldHide" android:src="@drawable/navigation_cancel" 
+				    <ImageButton android:id="@+id/ButtonBlindfoldHide" android:src="@drawable/navigation_cancel"
 						android:layout_height="40dip" android:layout_width="40dip" android:scaleType="fitXY"
 					/>
 					<ImageButton android:id="@+id/ButtonBlindfoldShow" android:src="@drawable/navigation_accept"
@@ -261,34 +261,19 @@
 					/>
 				</TableRow>
 			</TableLayout>
-			
+
 		</ViewAnimator>
 
-		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:tools="http://schemas.android.com/tools"
-			android:id="@+id/activity_ham_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:paddingBottom="@dimen/activity_vertical_margin"
-			android:paddingLeft="@dimen/activity_horizontal_margin"
-			android:paddingRight="@dimen/activity_horizontal_margin"
-			android:paddingTop="@dimen/activity_vertical_margin"
-			tools:context="com.nightonke.boommenusample.HamButtonActivity">
-
-			<ListView
-				android:id="@+id/list_view"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"/>
-
-			<com.nightonke.boommenu.BoomMenuButton
-				android:id="@+id/btn_generateReport"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentBottom="true"
-				android:layout_alignParentRight="true"
-				android:layout_alignParentEnd="true"
-				/>
-
-		</RelativeLayout>
 	</RelativeLayout>
+	<Button
+		android:id="@+id/generateButton"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:text="Generate Report"
+		android:fontFamily="sans-serif"
+		android:backgroundTint="#ffffff"
+		android:textColor="#000000"
+		android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

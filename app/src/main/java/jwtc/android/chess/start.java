@@ -10,10 +10,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,6 +46,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
+import com.nightonke.boommenu.BoomMenuButton;
 
 public class start extends AppCompatActivity {
 
@@ -70,7 +77,10 @@ public class start extends AppCompatActivity {
 	private String _lastMessage;
 	private static String _ssActivity = "";
 
-	    /**
+	private BoomMenuButton btn_generateReport;
+	private ArrayList<Pair> piecesAndButtons = new ArrayList<>();
+
+	/**
 		 * Called when the activity is first created.
 		 */
 		@Override
@@ -95,7 +105,7 @@ public class start extends AppCompatActivity {
 
 		setContentView(R.layout.start);
 
-		if (getIntent().getBooleanExtra("RESTART", false)) {
+			if (getIntent().getBooleanExtra("RESTART", false)) {
 			finish();
 			Intent intent = new Intent(this, start.class);
 			startActivity(intent);
@@ -172,8 +182,35 @@ public class start extends AppCompatActivity {
 				.addControlCategory(CastMediaControlIntent.categoryForCast("05EB93C6")).build();
 		mMediaRouterCallback = new MyMediaRouterCallback();
 
+		/**
+			btn_generateReport = (BoomMenuButton) findViewById(R.id.btn_generateReport);
+			assert btn_generateReport != null;
+			btn_generateReport.setNormalColor(Color.GREEN);
+			btn_generateReport.setDraggable(true);
+			btn_generateReport.setDimColor(Color.parseColor("#afA9A9A9"));
+			btn_generateReport.setShadowEffect(false);
 
-	}
+			for (int i = 0; i < btn_generateReport.getPiecePlaceEnum().pieceNumber(); i++) {
+				TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
+						.normalImageRes(R.drawable.butterfly)
+						.normalText("Butter Doesn't fly!").isRound(true);
+				btn_generateReport.addBuilder(builder);
+			}
+
+			for (int i = 0; i < btn_generateReport.getPiecePlaceEnum().pieceNumber(); i++) {
+				TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
+						.listener(new OnBMClickListener() {
+							@Override
+							public void onBoomButtonClick(int index) {
+								// When the boom-button corresponding this builder is clicked.
+								Toast.makeText(start.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+							}
+						});
+			}
+
+*/
+
+		}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == 1){
