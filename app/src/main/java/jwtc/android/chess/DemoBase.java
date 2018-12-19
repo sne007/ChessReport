@@ -2,6 +2,7 @@
 package jwtc.android.chess;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import androidx.annotation.Nullable;
  *
  * @author Philipp Jahoda
  */
-public abstract class DemoBase extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public abstract class DemoBase extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     protected final String[] months = new String[] {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"

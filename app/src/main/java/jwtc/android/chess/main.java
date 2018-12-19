@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.text.ClipboardManager;
 import android.util.Log;
+import android.util.Pair;
 import android.view.*;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -24,15 +25,24 @@ import android.speech.tts.TextToSpeech;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android.view.GestureDetector.OnGestureListener;
 import android.view.GestureDetector;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
+import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.ButtonEnum;
+import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
 public class main extends ChessActivity implements OnInitListener, GestureDetector.OnGestureListener {
 
@@ -62,12 +72,15 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
     public static final int REQUEST_FROM_QR_CODE = 5;
 
     private GestureDetector _gestureDetector;
+    private BoomMenuButton btn_generateReport;
+    private ArrayList<Pair> piecesAndButtons = new ArrayList<>();
 
     private boolean _skipReturn;
 
     /**
      * Called when the activity is first created.
      */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +89,7 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
         _ringNotification = null;
 
         setContentView(R.layout.main);
+
 
         this.makeActionOverflowMenuShown();
 
@@ -99,6 +113,29 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
         _dlgSave = null;
 
         _gestureDetector = new GestureDetector(this, this);
+
+        btn_generateReport = (BoomMenuButton) findViewById(R.id.btn_generateReport);
+        assert btn_generateReport != null;
+        btn_generateReport.setButtonEnum(ButtonEnum.Ham);
+        btn_generateReport.setPiecePlaceEnum(PiecePlaceEnum.HAM_1);
+        btn_generateReport.setButtonPlaceEnum(ButtonPlaceEnum.HAM_1);
+        btn_generateReport.addBuilder(BuilderManager.getHamButtonBuilder());
+
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        assert listView != null;
+        listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1,
+                BuilderManager.getHamButtonData(piecesAndButtons)));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                btn_generateReport.setPiecePlaceEnum((PiecePlaceEnum) piecesAndButtons.get(position).first);
+                btn_generateReport.setButtonPlaceEnum((ButtonPlaceEnum) piecesAndButtons.get(position).second);
+                btn_generateReport.clearBuilders();
+                for (int i = 0; i < btn_generateReport.getPiecePlaceEnum().pieceNumber(); i++)
+                    btn_generateReport.addBuilder(BuilderManager.getHamButtonBuilder());
+            }
+        });
+
     }
 
     @Override
@@ -406,6 +443,7 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
         _chessView.OnResume(prefs);
 
         _chessView.updateState();
+
 
         super.onResume();
     }

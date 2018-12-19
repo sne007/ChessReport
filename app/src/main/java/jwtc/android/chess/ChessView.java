@@ -20,11 +20,13 @@ import jwtc.chess.board.ChessBoard;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.util.Log;
 
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,14 @@ import android.content.SharedPreferences;
 import android.view.ViewTreeObserver;
 import android.widget.*;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.ArrayAdapter;
+
+import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.ButtonEnum;
+import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 
 /**
  *
@@ -44,7 +54,7 @@ public class ChessView extends UI {
     public static final String TAG = "ChessView";
 
     private ChessViewBase _view;
-
+    private BoomMenuButton btn_generateReport;
     private ChessActivity _parent;
     private ImageButton _butPlay, butQuickSoundOn, butQuickSoundOff;
     private ViewAnimator _viewAnimator;
@@ -66,7 +76,6 @@ public class ChessView extends UI {
     private ImageView _imgStatusGuess;
     private JSONArray _jArrayECO;
     private StringBuilder result = new StringBuilder(" ");
-
     // keep track of captured pieces
     private CapturedImageView[][] _arrImageCaptured;
     private TextView[][] _arrTextCaptured;
@@ -131,6 +140,19 @@ public class ChessView extends UI {
         _parent = (ChessActivity) activity;
         _view = new ChessViewBase(activity);
 
+        btn_generateReport = _parent.findViewById(R.id.btn_generateReport);
+//        btn_generateReport.setBackgroundColor(Color.GREEN);
+/*
+        btn_generateReport.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(_parent, Report.class);
+                _parent.startActivityForResult(intent, main.REQUEST_OPEN);
+            }
+        });
+*/
         _playMode = HUMAN_PC;
         _bAutoFlip = false;
         _bPlayAsBlack = false;
@@ -532,7 +554,6 @@ public class ChessView extends UI {
         _tvTitleMe = (TextView) _parent.findViewById(R.id.TextViewTitle);
         _tvTitleOpp = (TextView) _parent.findViewById(R.id.TextViewTopTitle);
         _tvEngine = (TextView) _parent.findViewById(R.id.TextViewEngine);
-
         //_tvEngineValue = (TextView)_parent.findViewById(R.id.TextViewEngineValue);
 
         _imgStatusGuess = (ImageView) _parent.findViewById(R.id.ImageStatusGuess);
@@ -599,6 +620,7 @@ public class ChessView extends UI {
         _progressPlay = (ProgressBar) _parent.findViewById(R.id.ProgressBarPlay);
 
         _seekBar = (SeekBar) _parent.findViewById(R.id.SeekBarMain);
+        _seekBar.setVisibility(View.VISIBLE);
         if (_seekBar != null) {
             _seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -1071,6 +1093,7 @@ public class ChessView extends UI {
     public void setEngineMessage(String sText) {
         if (_tvEngine != null) {
             _tvEngine.setText(sText + sText.indexOf('\n'));
+
             if(sText.indexOf('\n') == -1){
                 result.append("0 ");
             }
@@ -1588,9 +1611,8 @@ public class ChessView extends UI {
 
         sMove = sMove.replace("+", " check");
 
-        if(sMove.contains("#")){
-
-        }
+//        if(sMove.contains("#")){
+//        }
 
         sMove = sMove.replace("#", " checkmate");
 
