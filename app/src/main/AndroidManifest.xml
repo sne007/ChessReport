@@ -260,7 +260,10 @@
             android:exported="false" />
 
         <activity android:name=".Report" />
-        <activity android:name=".boomAnalysisMenu" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".boomAnalysisMenu" android:theme="@style/Theme.AppCompat.Light"></activity>
+        <activity android:name=".ScrollViewActivity" android:theme="@style/Theme.AppCompat.Light"></activity>
+        <activity android:name=".RadarChartActivity" android:theme="@style/Theme.AppCompat.Light"></activity>
+
     </application>
 
 </manifest>

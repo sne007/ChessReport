@@ -12,6 +12,7 @@ import com.nightonke.boommenu.BoomMenuButton;
 public class boomAnalysisMenu extends AppCompatActivity {
 
     private BoomMenuButton bmb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +31,13 @@ public class boomAnalysisMenu extends AppCompatActivity {
             bmb.setAutoBoom(true);
         if(!bmb.isBoomed())
             bmb.setAutoBoom(true);
-        bmb.setUse3DTransformAnimation(true);
-        bmb.setDelay(100);
+//        bmb.setUse3DTransformAnimation(true);
 
         bmb.clearBuilders();
 
 
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
+            final int finalI = i;
             HamButton.Builder builder = new HamButton.Builder()
                     .normalImageRes(R.drawable.butterfly)
                     .normalTextRes(R.string.text_ham_button_text_normal)
@@ -45,9 +46,26 @@ public class boomAnalysisMenu extends AppCompatActivity {
                         @Override
                         public void onBoomButtonClick(int index){
                             // When the boom-button corresponding this builder is clicked.
-                            Intent intent = new Intent();
-                            intent.setClass(boomAnalysisMenu.this, Report.class);
-                            startActivity(intent);
+                            if(finalI == 0){
+                                Intent intent = new Intent();
+                                intent.setClass(boomAnalysisMenu.this, RadarChartActivity.class);
+                                startActivity(intent);
+                            }
+                            else if(finalI == 1){
+                                Intent intent = new Intent();
+                                intent.setClass(boomAnalysisMenu.this, ScrollViewActivity.class);
+                                startActivity(intent);
+                            }
+                            else if(finalI == 2){
+                                Intent intent = new Intent();
+                                intent.setClass(boomAnalysisMenu.this, Report.class);
+                                startActivity(intent);
+                            }
+                            else if(finalI == 3){
+                                Intent intent = new Intent();
+                                intent.setClass(boomAnalysisMenu.this, Report.class);
+                                startActivity(intent);
+                            }
                         }
                     });
             bmb.addBuilder(builder);
@@ -65,6 +83,7 @@ public class boomAnalysisMenu extends AppCompatActivity {
         super.onPause();
         // put your code here...
 //        bmb.setAutoBoomImmediately(true);
+        setBoomBuilders();
     }
 
     @Override

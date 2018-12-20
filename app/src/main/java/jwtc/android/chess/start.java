@@ -213,7 +213,7 @@ public class start extends AppCompatActivity {
 		bmbStart = findViewById(R.id.bmbStart);
 
 		bmbStart.setAutoBoom(true);
-		bmbStart.setUse3DTransformAnimation(true);
+//		bmbStart.setUse3DTransformAnimation(true);
 
 		bmbStart.setNormalColor(Color.parseColor("#8B4513"));
 
@@ -292,6 +292,8 @@ public class start extends AppCompatActivity {
 	@Override
 	protected void onPostResume() {
 		super.onPostResume();
+
+		setupBmb();
 
 		SharedPreferences getData = getSharedPreferences("ChessPlayer", Context.MODE_PRIVATE);
 		if (getData.getBoolean("RESTART", false)) {

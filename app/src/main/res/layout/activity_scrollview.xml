@@ -13,12 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="@string/PieViewStart" />
+            android:text="@string/scrollViewStart" />
 
         <!-- THIS IS JUST A PLACEHOLDER -->
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart1"
             android:layout_width="match_parent"
             android:layout_height="450dp" />
 
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="@string/PieViewEnd" />
+            android:text="@string/scrollViewEnd" />
 
     </LinearLayout>
 

@@ -57,7 +57,7 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         pieChart = findViewById(R.id.pieChart);
         pieChart.setBackgroundColor(Color.WHITE);
 
-        moveOffScreen();
+//        moveOffScreen();
 
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
@@ -152,8 +152,8 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
 
         int offset = (int)(height * 0.65); /* percent to move */
 
-        RelativeLayout.LayoutParams rlParams =
-                (RelativeLayout.LayoutParams) pieChart.getLayoutParams();
+        ScrollView.LayoutParams rlParams =
+                (ScrollView.LayoutParams) pieChart.getLayoutParams();
         rlParams.setMargins(0, 0, 0, -offset);
         pieChart.setLayoutParams(rlParams);
     }
