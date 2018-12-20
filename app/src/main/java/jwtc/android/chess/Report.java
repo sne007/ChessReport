@@ -42,9 +42,6 @@ import java.util.List;
 public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener {
 
     private PieChart pieChart;
-    private BarChart barChart;
-    private SeekBar seekBarX;
-    private TextView tvX;
 
     private List<BarEntry> data;
 
@@ -104,70 +101,6 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         pieChart.setEntryLabelTypeface(tfRegular);
         pieChart.setEntryLabelTextSize(12f);
 
-
-/*
-        data = FileUtils.loadBarEntriesFromAssets(getAssets(), "othersine.txt");
-
-        tvX = findViewById(R.id.tvValueCount);
-
-        seekBarX = findViewById(R.id.seekbarValues);
-
-        barChart = findViewById(R.id.barChart);
-
-        barChart.setDrawBarShadow(false);
-        barChart.setDrawValueAboveBar(true);
-
-        barChart.getDescription().setEnabled(false);
-
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        barChart.setMaxVisibleValueCount(60);
-
-        // scaling can now only be done on x- and y-axis separately
-        barChart.setPinchZoom(false);
-
-        // draw shadows for each bar that show the maximum value
-        // chart.setDrawBarShadow(true);
-
-        // chart.setDrawXLabels(false);
-
-        barChart.setDrawGridBackground(false);
-        // chart.setDrawYLabels(false);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setEnabled(false);
-
-        YAxis leftAxis = barChart.getAxisLeft();
-        leftAxis.setTypeface(tfLight);
-        leftAxis.setLabelCount(6, false);
-        leftAxis.setAxisMinimum(-2.5f);
-        leftAxis.setAxisMaximum(2.5f);
-        leftAxis.setGranularityEnabled(true);
-        leftAxis.setGranularity(0.1f);
-
-        YAxis rightAxis = barChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setTypeface(tfLight);
-        rightAxis.setLabelCount(6, false);
-        rightAxis.setAxisMinimum(-2.5f);
-        rightAxis.setAxisMaximum(2.5f);
-        rightAxis.setGranularity(0.1f);
-
-        seekBarX.setOnSeekBarChangeListener(this);
-        seekBarX.setProgress(150); // set data
-
-        Legend legendBar = barChart.getLegend();
-        legendBar.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        legendBar.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legendBar.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        legendBar.setDrawInside(false);
-        legendBar.setForm(Legend.LegendForm.SQUARE);
-        legendBar.setFormSize(9f);
-        legendBar.setTextSize(11f);
-        legendBar.setXEntrySpace(4f);
-
-        barChart.animateXY(1500, 1500);
-*/
     }
 
     private void setData(int count, float range) {
@@ -193,35 +126,6 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         pieChart.setData(data);
 
         pieChart.invalidate();
-    }
-    private void setData(int count) {
-
-        ArrayList<BarEntry> entries = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            entries.add(data.get(i));
-        }
-
-        BarDataSet set;
-
-        if (barChart.getData() != null &&
-                barChart.getData().getDataSetCount() > 0) {
-            set = (BarDataSet) barChart.getData().getDataSetByIndex(0);
-            set.setValues(entries);
-            barChart.getData().notifyDataChanged();
-            barChart.notifyDataSetChanged();
-        } else {
-            set = new BarDataSet(entries, "Sinus Function");
-            set.setColor(Color.rgb(240, 120, 124));
-        }
-
-        BarData data = new BarData(set);
-        data.setValueTextSize(10f);
-        data.setValueTypeface(tfLight);
-        data.setDrawValues(false);
-        data.setBarWidth(0.8f);
-
-        barChart.setData(data);
     }
 
     private SpannableString generateCenterSpannableText() {

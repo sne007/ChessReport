@@ -85,129 +85,145 @@ public class start extends AppCompatActivity {
 		 */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+			super.onCreate(savedInstanceState);
 
-		SharedPreferences getData = getSharedPreferences("ChessPlayer", Context.MODE_PRIVATE);
-		String myLanguage  	= getData.getString("localelanguage", "");
+			SharedPreferences getData = getSharedPreferences("ChessPlayer", Context.MODE_PRIVATE);
+			String myLanguage = getData.getString("localelanguage", "");
 
-		Locale current = getResources().getConfiguration().locale;
-		String language = current.getLanguage();
-		if(myLanguage.equals("")){    // localelanguage not used yet? then use device default locale
-			myLanguage = language;
-		}
+			Locale current = getResources().getConfiguration().locale;
+			String language = current.getLanguage();
+			if (myLanguage.equals("")) {    // localelanguage not used yet? then use device default locale
+				myLanguage = language;
+			}
 
-		Locale locale = new Locale(myLanguage);    // myLanguage is current language
-		Locale.setDefault(locale);
-		Configuration config = new Configuration();
-		config.locale = locale;
-		getBaseContext().getResources().updateConfiguration(config,
-				getBaseContext().getResources().getDisplayMetrics());
+			Locale locale = new Locale(myLanguage);    // myLanguage is current language
+			Locale.setDefault(locale);
+			Configuration config = new Configuration();
+			config.locale = locale;
+			getBaseContext().getResources().updateConfiguration(config,
+					getBaseContext().getResources().getDisplayMetrics());
 
-		setContentView(R.layout.start);
+			setContentView(R.layout.start);
 
 			if (getIntent().getBooleanExtra("RESTART", false)) {
-			finish();
-			Intent intent = new Intent(this, start.class);
-			startActivity(intent);
-		}
-
-		_jni = new JNI();
-
-		_lastMessage = "";
-
-		_timer = new Timer(true);
-		_timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				sendMessage(_jni.toFEN());
+				finish();
+				Intent intent = new Intent(this, start.class);
+				startActivity(intent);
 			}
-		}, 1000, 500);
 
-		String[] title = getResources().getStringArray(R.array.start_menu);
+			_jni = new JNI();
 
-		_list = (ListView)findViewById(R.id.ListStart);
-		_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				_ssActivity = parent.getItemAtPosition(position).toString();
-				try {
-					Intent i = new Intent();
-					Log.i("start", _ssActivity);
-					if (_ssActivity.equals(getString(R.string.start_play))) {
-						i.setClass(start.this, main.class);
-						i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-						startActivity(i);
-					} else if (_ssActivity.equals(getString(R.string.start_practice))) {
-						i.setClass(start.this, practice.class);
-						i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-						startActivity(i);
-					} else if (_ssActivity.equals(getString(R.string.start_puzzles))) {
-						i.setClass(start.this, puzzle.class);
-						i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-						startActivity(i);
-					} else if (_ssActivity.equals(getString(R.string.start_about))) {
-						i.setClass(start.this, HtmlActivity.class);
-						i.putExtra(HtmlActivity.HELP_MODE, "about");
-						startActivity(i);
-					} else if (_ssActivity.equals(getString(R.string.start_ics))) {
-						i.setClass(start.this, ICSClient.class);
-						startActivity(i);
-					} else if (_ssActivity.equals(getString(R.string.start_pgn))) {
-						i.setClass(start.this, pgntool.class);
-						i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-						startActivity(i);
-					} else if (_ssActivity.equals(getString(R.string.start_globalpreferences))) {
-						i.setClass(start.this, ChessPreferences.class);
-						startActivityForResult(i, 0);
-					} else if (_ssActivity.equals(getString(R.string.menu_help))) {
-						i.setClass(start.this, HtmlActivity.class);
-						i.putExtra(HtmlActivity.HELP_MODE, "help");
-						startActivity(i);
-					}
+			_lastMessage = "";
 
-				} catch (Exception ex) {
-					Toast t = Toast.makeText(start.this, R.string.toast_could_not_start_activity, Toast.LENGTH_LONG);
-					t.setGravity(Gravity.BOTTOM, 0, 0);
-					t.show();
+			_timer = new Timer(true);
+			_timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					sendMessage(_jni.toFEN());
 				}
-			}
-		});
+			}, 1000, 500);
 
-		MyApplication application = (MyApplication) getApplication();
-		_tracker = application .getDefaultTracker();
+			String[] title = getResources().getStringArray(R.array.start_menu);
+
+
+/*
+			_list = (ListView) findViewById(R.id.ListStart);
+			_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					_ssActivity = parent.getItemAtPosition(position).toString();
+					try {
+						Intent i = new Intent();
+						Log.i("start", _ssActivity);
+						if (_ssActivity.equals(getString(R.string.start_play))) {
+							i.setClass(start.this, main.class);
+							i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+							startActivity(i);
+						} else if (_ssActivity.equals(getString(R.string.start_practice))) {
+							i.setClass(start.this, practice.class);
+							i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+							startActivity(i);
+						} else if (_ssActivity.equals(getString(R.string.start_puzzles))) {
+							i.setClass(start.this, puzzle.class);
+							i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+							startActivity(i);
+						} else if (_ssActivity.equals(getString(R.string.start_about))) {
+							i.setClass(start.this, HtmlActivity.class);
+							i.putExtra(HtmlActivity.HELP_MODE, "about");
+							startActivity(i);
+						} else if (_ssActivity.equals(getString(R.string.start_ics))) {
+							i.setClass(start.this, ICSClient.class);
+							startActivity(i);
+						} else if (_ssActivity.equals(getString(R.string.start_pgn))) {
+							i.setClass(start.this, pgntool.class);
+							i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+							startActivity(i);
+						} else if (_ssActivity.equals(getString(R.string.start_globalpreferences))) {
+							i.setClass(start.this, ChessPreferences.class);
+							startActivityForResult(i, 0);
+						} else if (_ssActivity.equals(getString(R.string.menu_help))) {
+							i.setClass(start.this, HtmlActivity.class);
+							i.putExtra(HtmlActivity.HELP_MODE, "help");
+							startActivity(i);
+						}
+
+					} catch (Exception ex) {
+						Toast t = Toast.makeText(start.this, R.string.toast_could_not_start_activity, Toast.LENGTH_LONG);
+						t.setGravity(Gravity.BOTTOM, 0, 0);
+						t.show();
+					}
+				}
+			});
+
+*/
+
+
+			MyApplication application = (MyApplication) getApplication();
+			_tracker = application.getDefaultTracker();
 
 			// Configure Cast device discovery
-		mMediaRouter = MediaRouter.getInstance(getApplicationContext());
-		mMediaRouteSelector = new MediaRouteSelector.Builder()
-				.addControlCategory(CastMediaControlIntent.categoryForCast("05EB93C6")).build();
-		mMediaRouterCallback = new MyMediaRouterCallback();
+			mMediaRouter = MediaRouter.getInstance(getApplicationContext());
+			mMediaRouteSelector = new MediaRouteSelector.Builder()
+					.addControlCategory(CastMediaControlIntent.categoryForCast("05EB93C6")).build();
+			mMediaRouterCallback = new MyMediaRouterCallback();
 
-		/**
-			btn_generateReport = (BoomMenuButton) findViewById(R.id.btn_generateReport);
-			assert btn_generateReport != null;
-			btn_generateReport.setNormalColor(Color.GREEN);
-			btn_generateReport.setDraggable(true);
-			btn_generateReport.setDimColor(Color.parseColor("#afA9A9A9"));
-			btn_generateReport.setShadowEffect(false);
+			BoomMenuButton bmbStart = findViewById(R.id.bmbStart);
 
-			for (int i = 0; i < btn_generateReport.getPiecePlaceEnum().pieceNumber(); i++) {
+			bmbStart.setAutoBoom(true);
+
+			for (int i = 0; i < bmbStart.getPiecePlaceEnum().pieceNumber(); i++) {
 				TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
 						.normalImageRes(R.drawable.butterfly)
-						.normalText("Butter Doesn't fly!").isRound(true);
-				btn_generateReport.addBuilder(builder);
+						.normalText("Butter Doesn't fly!");
+				bmbStart.addBuilder(builder);
 			}
 
-			for (int i = 0; i < btn_generateReport.getPiecePlaceEnum().pieceNumber(); i++) {
-				TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
+/*
+
+			for (int i = 1; i < bmbStart.getPiecePlaceEnum().pieceNumber(); i++) {
+				TextOutsideCircleButton.Builder builder3 = new TextOutsideCircleButton.Builder()
 						.listener(new OnBMClickListener() {
 							@Override
 							public void onBoomButtonClick(int index) {
-								// When the boom-button corresponding this builder is clicked.
-								Toast.makeText(start.this, "Clicked " + index, Toast.LENGTH_SHORT).show();
+								Intent i = new Intent();
+								if (index == 0) {
+									i.setClass(start.this, main.class);
+									i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+									startActivity(i);
+								}
+								else if(index == 1){
+									i.setClass(start.this, practice.class);
+									i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+									startActivity(i);
+								}
+								else if(index == 2){
+									i.setClass(start.this, puzzle.class);
+									i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+									startActivity(i);
+								}
 							}
 						});
 			}
-
 */
 
 		}
