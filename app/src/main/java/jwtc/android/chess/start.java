@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +51,7 @@ import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.Util;
 
 public class start extends AppCompatActivity {
 
@@ -79,6 +81,7 @@ public class start extends AppCompatActivity {
 
 	private BoomMenuButton btn_generateReport;
 	private ArrayList<Pair> piecesAndButtons = new ArrayList<>();
+	BoomMenuButton bmbStart;
 
 	/**
 		 * Called when the activity is first created.
@@ -187,44 +190,8 @@ public class start extends AppCompatActivity {
 					.addControlCategory(CastMediaControlIntent.categoryForCast("05EB93C6")).build();
 			mMediaRouterCallback = new MyMediaRouterCallback();
 
-			BoomMenuButton bmbStart = findViewById(R.id.bmbStart);
 
-			bmbStart.setAutoBoom(true);
-
-			for (int i = 0; i < bmbStart.getPiecePlaceEnum().pieceNumber(); i++) {
-				TextOutsideCircleButton.Builder builder = new TextOutsideCircleButton.Builder()
-						.normalImageRes(R.drawable.butterfly)
-						.normalText("Butter Doesn't fly!");
-				bmbStart.addBuilder(builder);
-			}
-
-/*
-
-			for (int i = 1; i < bmbStart.getPiecePlaceEnum().pieceNumber(); i++) {
-				TextOutsideCircleButton.Builder builder3 = new TextOutsideCircleButton.Builder()
-						.listener(new OnBMClickListener() {
-							@Override
-							public void onBoomButtonClick(int index) {
-								Intent i = new Intent();
-								if (index == 0) {
-									i.setClass(start.this, main.class);
-									i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-									startActivity(i);
-								}
-								else if(index == 1){
-									i.setClass(start.this, practice.class);
-									i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-									startActivity(i);
-								}
-								else if(index == 2){
-									i.setClass(start.this, puzzle.class);
-									i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-									startActivity(i);
-								}
-							}
-						});
-			}
-*/
+			setupBmb();
 
 		}
 
@@ -239,6 +206,87 @@ public class start extends AppCompatActivity {
 			startActivity(intent);
 
 		}
+	}
+
+	public void setupBmb(){
+
+		bmbStart = findViewById(R.id.bmbStart);
+
+		bmbStart.setAutoBoom(true);
+		bmbStart.setUse3DTransformAnimation(true);
+
+		bmbStart.setNormalColor(Color.parseColor("#8B4513"));
+
+		String val[] = new String[]{
+				"Play", "Practice", "Puzzles", "About Developer"
+		};
+		String colorString = "#D3D3D3";
+
+		bmbStart.clearBuilders();
+		bmbStart.addBuilder(new HamButton.Builder()
+				.normalImageRes(R.drawable.play_chess)
+				.normalTextRes(R.string.text_ham_play)
+                .pieceColor(Color.parseColor(colorString))
+				.normalColor(Color.argb(100,205,133,63))
+				.listener(new OnBMClickListener() {
+					@Override
+					public void onBoomButtonClick(int index){
+						// When the boom-button corresponding this builder is clicked.
+						bmbStart.reboom();
+						Intent intent = new Intent();
+						intent.setClass(start.this, main.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(intent);
+					}
+				}));
+
+		bmbStart.addBuilder(new HamButton.Builder()
+				.normalImageRes(R.drawable.practice_chess)
+				.normalTextRes(R.string.text_ham_practice)
+				.normalColor(Color.argb(100,205,133,63))
+                .pieceColor(Color.parseColor(colorString))
+				.listener(new OnBMClickListener() {
+					@Override
+					public void onBoomButtonClick(int index){
+						// When the boom-button corresponding this builder is clicked.
+						Intent intent = new Intent();
+						intent.setClass(start.this, practice.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(intent);
+					}
+				}));
+
+		bmbStart.addBuilder(new HamButton.Builder()
+				.normalImageRes(R.drawable.puzzles_chess)
+				.normalTextRes(R.string.text_ham_puzzles)
+				.normalColor(Color.argb(100,205,133,63))
+                .pieceColor(Color.parseColor(colorString))
+				.listener(new OnBMClickListener() {
+					@Override
+					public void onBoomButtonClick(int index){
+						Intent intent = new Intent();
+						intent.setClass(start.this, puzzle.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(intent);
+					}
+				}));
+
+		bmbStart.addBuilder(new HamButton.Builder()
+				.normalImageRes(R.drawable.about_dev)
+				.normalTextRes(R.string.text_ham_about)
+				.normalColor(Color.argb(100,205,133,63))
+                .pieceColor(Color.parseColor(colorString))
+				.listener(new OnBMClickListener() {
+					@Override
+					public void onBoomButtonClick(int index){
+						Intent intent = new Intent();
+						intent.setClass(start.this, main.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+						startActivity(intent);
+					}
+				}));
+
+
 	}
 
 	@Override

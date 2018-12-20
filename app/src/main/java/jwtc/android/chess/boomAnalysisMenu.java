@@ -35,6 +35,7 @@ public class boomAnalysisMenu extends AppCompatActivity {
 
         bmb.clearBuilders();
 
+
         for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
             HamButton.Builder builder = new HamButton.Builder()
                     .normalImageRes(R.drawable.butterfly)
