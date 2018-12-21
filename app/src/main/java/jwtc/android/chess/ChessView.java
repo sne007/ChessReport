@@ -584,6 +584,13 @@ public class ChessView extends UI {
 
         _sPrevECO = null;
 
+    }
+
+    public void sendData(){
+
+        Intent intent=new Intent(_parent,boomAnalysisMenu.class);
+        intent.putExtra("result",result.toString());
+        _parent.startActivity(intent);
 
     }
 
@@ -977,12 +984,11 @@ public class ChessView extends UI {
             _tvEngine.setText(sText + sText.indexOf('\n'));
 
             if(sText.indexOf('\n') == -1){
-                result.append("0 ");
+                result.append(" 0 ");
             }
             else if(sText.indexOf('\n') == 16){
                 result.append(sText.substring(17,sText.length()) + " ");
             }
-            System.out.println(" amazing " + result.toString() + " value " + _jni.getBoardValue());
         }
     }
 
@@ -1456,9 +1462,15 @@ public class ChessView extends UI {
 
         if (sMove.contains("x")){
             _parent.soundCapture();
-        } else {
+        } else
             _parent.soundMove();
+
+        if(sMove.contains("#")){
+            result.append(" 10000.0");
+            sendData();
         }
+
+
 
         if (sMove.length() > 3 && !sMove.equals("O-O-O")) {
             // assures space to separate which Rook and which Knight to move

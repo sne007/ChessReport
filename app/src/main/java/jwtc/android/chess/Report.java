@@ -44,7 +44,6 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
     private PieChart pieChart;
 
     private List<BarEntry> data;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +53,8 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
 
         setTitle("Your Report");
 
+
+        System.out.println(" wow this is so easy ");
         pieChart = findViewById(R.id.pieChart);
         pieChart.setBackgroundColor(Color.WHITE);
 

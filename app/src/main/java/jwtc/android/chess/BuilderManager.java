@@ -37,8 +37,8 @@ public class BuilderManager {
     static HamButton.Builder getHamButtonBuilder() {
         return new HamButton.Builder()
                 .normalImageRes(getImageResource())
-                .normalTextRes(R.string.text_ham_button_text_normal)
-                .subNormalTextRes(R.string.text_ham_button_sub_text_normal);
+                .normalTextRes(R.string.ham1)
+                .subNormalTextRes(R.string.ham2);
     }
 
     static HamButton.Builder getHamButtonBuilder(String text, String subText) {
@@ -51,15 +51,15 @@ public class BuilderManager {
     static HamButton.Builder getPieceCornerRadiusHamButtonBuilder() {
         return new HamButton.Builder()
                 .normalImageRes(getImageResource())
-                .normalTextRes(R.string.text_ham_button_text_normal)
-                .subNormalTextRes(R.string.text_ham_button_sub_text_normal);
+                .normalTextRes(R.string.ham1)
+                .subNormalTextRes(R.string.ham2);
     }
 
     static HamButton.Builder getHamButtonBuilderWithDifferentPieceColor() {
         return new HamButton.Builder()
                 .normalImageRes(getImageResource())
-                .normalTextRes(R.string.text_ham_button_text_normal)
-                .subNormalTextRes(R.string.text_ham_button_sub_text_normal)
+                .normalTextRes(R.string.ham1)
+                .subNormalTextRes(R.string.ham2)
                 .pieceColor(Color.WHITE);
     }
 

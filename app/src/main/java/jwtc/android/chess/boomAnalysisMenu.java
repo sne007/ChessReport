@@ -3,6 +3,7 @@ package jwtc.android.chess;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.nightonke.boommenu.BoomButtons.HamButton;
@@ -12,11 +13,18 @@ import com.nightonke.boommenu.BoomMenuButton;
 public class boomAnalysisMenu extends AppCompatActivity {
 
     private BoomMenuButton bmb;
+    private String result = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boom_analysis_menu);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            result = extras.getString("result");
+
+        }
 
         setBoomBuilders();
     }
@@ -35,47 +43,63 @@ public class boomAnalysisMenu extends AppCompatActivity {
 
         bmb.clearBuilders();
 
+        bmb.addBuilder(new HamButton.Builder()
+                .normalImageRes(R.drawable.radarcharticon)
+                .normalTextRes(R.string.ham1)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index){
+                        // When the boom-button corresponding this builder is clicked.
 
-        for (int i = 0; i < bmb.getPiecePlaceEnum().pieceNumber(); i++) {
-            final int finalI = i;
-            HamButton.Builder builder = new HamButton.Builder()
-                    .normalImageRes(R.drawable.butterfly)
-                    .normalTextRes(R.string.text_ham_button_text_normal)
-                    .subNormalTextRes(R.string.text_ham_button_sub_text_highlighted)
-                    .listener(new OnBMClickListener() {
-                        @Override
-                        public void onBoomButtonClick(int index){
-                            // When the boom-button corresponding this builder is clicked.
-                            if(finalI == 0){
-                                Intent intent = new Intent();
-                                intent.setClass(boomAnalysisMenu.this, RadarChartActivity.class);
-                                startActivity(intent);
-                            }
-                            else if(finalI == 1){
-                                Intent intent = new Intent();
-                                intent.setClass(boomAnalysisMenu.this, ScrollViewActivity.class);
-                                startActivity(intent);
-                            }
-                            else if(finalI == 2){
-                                Intent intent = new Intent();
-                                intent.setClass(boomAnalysisMenu.this, Report.class);
-                                startActivity(intent);
-                            }
-                            else if(finalI == 3){
-                                Intent intent = new Intent();
-                                intent.setClass(boomAnalysisMenu.this, Report.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-            bmb.addBuilder(builder);
-            bmb.setBuilder(i,builder);
-        }
+                        Intent intent = new Intent();
+                        intent.setClass(boomAnalysisMenu.this, RadarChartActivity.class);
+                        intent.putExtra("result",result);
+                        startActivity(intent);
+                    }
+                }));
 
-        System.out.println(" builder at 0 " + bmb.getBuilder(0));
-        System.out.println(" builder at 1 " + bmb.getBuilder(1));
-        System.out.println(" builder at 2 " + bmb.getBuilder(2));
-        System.out.println(" builder at 3 " + bmb.getBuilder(3));
+        bmb.addBuilder(new HamButton.Builder()
+                .normalImageRes(R.drawable.piecharticon)
+                .normalTextRes(R.string.ham2)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index){
+                        // When the boom-button corresponding this builder is clicked.
+                        Intent intent = new Intent();
+                        intent.setClass(boomAnalysisMenu.this, Report.class);
+                        intent.putExtra("result",result);
+                        startActivity(intent);
+                    }
+                }));
+
+        bmb.addBuilder(new HamButton.Builder()
+                .normalImageRes(R.drawable.barcharticon)
+                .normalTextRes(R.string.ham3)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index){
+                        // When the boom-button corresponding this builder is clicked.
+                        Intent intent = new Intent();
+                        intent.setClass(boomAnalysisMenu.this, ScrollViewActivity.class);
+                        intent.putExtra("result",result);
+                        startActivity(intent);
+                    }
+                }));
+
+        bmb.addBuilder(new HamButton.Builder()
+                .normalImageRes(R.drawable.contributeicon)
+                .normalTextRes(R.string.ham4)
+                .listener(new OnBMClickListener() {
+                    @Override
+                    public void onBoomButtonClick(int index){
+                        // When the boom-button corresponding this builder is clicked.
+                        Intent intent = new Intent();
+                        intent.setClass(boomAnalysisMenu.this, RadarChartActivity.class);
+                        intent.putExtra("result",result);
+                        startActivity(intent);
+                    }
+                }));
+
     }
 
     @Override

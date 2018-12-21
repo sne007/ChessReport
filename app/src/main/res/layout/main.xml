@@ -265,15 +265,17 @@
 		</ViewAnimator>
 
 	</RelativeLayout>
+
 	<Button
 		android:id="@+id/generateButton"
-		android:layout_width="match_parent"
+		android:layout_width="150dp"
 		android:layout_height="wrap_content"
-		android:textSize="20sp"
-		android:text="Generate Report"
+		android:textSize="15sp"
+		android:text="MY REPORT"
+		android:layout_centerHorizontal="true"
 		android:fontFamily="sans-serif"
 		android:backgroundTint="#ffffff"
-		android:textColor="#000000"
-		android:layout_alignParentBottom="true"/>
+		android:textColor="#006400"
+		android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

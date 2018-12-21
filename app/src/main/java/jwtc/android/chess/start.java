@@ -160,7 +160,7 @@ public class start extends AppCompatActivity {
 							startActivity(i);
 						} else if (_ssActivity.equals(getString(R.string.start_about))) {
 							i.setClass(start.this, HtmlActivity.class);
-							i.putExtra(HtmlActivity.HELP_MODE, "about");
+								i.putExtra(HtmlActivity.HELP_MODE, "about");
 							startActivity(i);
 						} else if (_ssActivity.equals(getString(R.string.start_ics))) {
 							i.setClass(start.this, ICSClient.class);
@@ -236,7 +236,7 @@ public class start extends AppCompatActivity {
 				.normalImageRes(R.drawable.play_chess)
 				.normalTextRes(R.string.text_ham_play)
                 .pieceColor(Color.parseColor(colorString))
-				.normalColor(Color.argb(200,50,205,50))
+				.normalColor(Color.rgb(50,205,50))
 				.listener(new OnBMClickListener() {
 					@Override
 					public void onBoomButtonClick(int index){
@@ -252,7 +252,7 @@ public class start extends AppCompatActivity {
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.practice_chess)
 				.normalTextRes(R.string.text_ham_practice)
-				.normalColor(Color.argb(200,255,215,0))
+				.normalColor(Color.rgb(255,215,0))
                 .pieceColor(Color.parseColor(colorString))
 				.listener(new OnBMClickListener() {
 					@Override
@@ -268,7 +268,7 @@ public class start extends AppCompatActivity {
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.puzzles_chess)
 				.normalTextRes(R.string.text_ham_puzzles)
-				.normalColor(Color.argb(200,0,191,255))
+				.normalColor(Color.rgb(0,191,255))
                 .pieceColor(Color.parseColor(colorString))
 				.listener(new OnBMClickListener() {
 					@Override
@@ -283,7 +283,7 @@ public class start extends AppCompatActivity {
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.about_dev)
 				.normalTextRes(R.string.text_ham_about)
-				.normalColor(Color.argb(200,220,20,60))
+				.normalColor(Color.rgb(220,20,60))
                 .pieceColor(Color.parseColor(colorString))
 				.listener(new OnBMClickListener() {
 					@Override
@@ -294,8 +294,6 @@ public class start extends AppCompatActivity {
 						startActivity(intent);
 					}
 				}));
-
-
 	}
 
 	@Override

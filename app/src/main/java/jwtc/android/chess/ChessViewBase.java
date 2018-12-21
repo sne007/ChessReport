@@ -199,14 +199,14 @@ public class ChessViewBase{
 		}
 
 		//green
-		ChessImageView._arrColorScheme[0][0] = Color.rgb(50,205,50);
+		ChessImageView._arrColorScheme[0][0] = Color.rgb(0,128,0);
 		ChessImageView._arrColorScheme[0][1] = Color.rgb(255,255,255);
-		ChessImageView._arrColorScheme[0][2] = Color.rgb(173,216,230);
+		ChessImageView._arrColorScheme[0][2] = Color.rgb(144,238,144);
 
 		// yellow
 		ChessImageView._arrColorScheme[1][0] = Color.rgb(153,153,0);
 		ChessImageView._arrColorScheme[1][1] = Color.rgb(255,255,255);
-		ChessImageView._arrColorScheme[1][2] = Color.rgb(173,216,230);
+		ChessImageView._arrColorScheme[1][2] = Color.rgb(238,232,170);
 
 		// blue
 		ChessImageView._arrColorScheme[2][0] = Color.rgb(0,191,255);
@@ -222,7 +222,7 @@ public class ChessViewBase{
 		ChessImageView._arrColorScheme[4][0] = 0xff65390d; //4c2b0a
 		ChessImageView._arrColorScheme[4][1] = 0xffb98b4f;
 		ChessImageView._arrColorScheme[4][2] = 0xccf3ed4b;
-		// 347733
+
 		// red
 		ChessImageView._arrColorScheme[5][0] = 0xffff2828;
 		ChessImageView._arrColorScheme[5][1] = 0xffffd1d1;

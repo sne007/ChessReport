@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class RadarChartActivity extends DemoBase {
 
     private RadarChart chart;
+    private String result = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,14 @@ public class RadarChartActivity extends DemoBase {
         setContentView(R.layout.activity_radarchart);
 
         setTitle("RadarChartActivity");
+
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            result = extras.getString("result");
+        }
+
+        System.out.println(result + " in radar ");
 
         chart = findViewById(R.id.radarChart);
         chart.setBackgroundColor(Color.rgb(60, 65, 82));
@@ -94,6 +103,7 @@ public class RadarChartActivity extends DemoBase {
         l.setTextColor(Color.WHITE);
     }
 
+
     private void setData() {
 
         float mul = 80;
@@ -104,8 +114,27 @@ public class RadarChartActivity extends DemoBase {
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < cnt; i++) {
-            float val1 = (float) (Math.random() * mul) + min;
+
+        String[] split = result.split("\\s+");
+        float accuracy = 0,blunder=0;
+        for(int i=1; i < split.length;i++){
+            try {
+                float f = Float.parseFloat(split[i]) - Float.parseFloat(split[i-1]);
+                if(f > 2)
+                    blunder++;
+                System.out.println(f);
+            }
+            catch (Exception e){
+
+            }
+        }
+
+        float val1 = (float) (blunder/(float)split.length) * 100;
+        entries1.add(new RadarEntry(val1));
+
+        System.out.println(" no. of blunders are " + blunder + " total is " + split.length);
+        for (int i = 1; i < cnt; i++) {
+            val1 = (float) (Math.random() * mul) + min;
             entries1.add(new RadarEntry(val1));
         }
 
