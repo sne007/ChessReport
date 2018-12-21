@@ -116,12 +116,17 @@ public class RadarChartActivity extends DemoBase {
         // the chart.
 
         String[] split = result.split("\\s+");
-        float accuracy = 0,blunder=0;
+        float accuracy = 0,blunder=0,mistakes=0,goodMoves=0;
         for(int i=1; i < split.length;i++){
             try {
                 float f = Float.parseFloat(split[i]) - Float.parseFloat(split[i-1]);
                 if(f > 2)
                     blunder++;
+                else if(f > 1 && f <= 2){
+                    mistakes++;
+                }
+                else
+                    goodMoves++;
                 System.out.println(f);
             }
             catch (Exception e){

@@ -42,7 +42,7 @@ import java.util.List;
 public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener {
 
     private PieChart pieChart;
-
+    private String result = " ";
     private List<BarEntry> data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,13 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_report);
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            result = extras.getString("result");
+        }
+
+
 
         setTitle("Your Report");
 
@@ -80,11 +87,11 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         pieChart.setRotationEnabled(false);
         pieChart.setHighlightPerTapEnabled(true);
 
-        pieChart.setMaxAngle(180f); // HALF CHART
+        pieChart.setMaxAngle(360f); // HALF CHART
         pieChart.setRotationAngle(180f);
         pieChart.setCenterTextOffset(0, -20);
 
-        setData(4, 100);
+        setData(3, 100);
 
         pieChart.animateY(1400, Easing.EaseInOutQuad);
 
@@ -102,17 +109,43 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         pieChart.setEntryLabelTypeface(tfRegular);
         pieChart.setEntryLabelTextSize(12f);
 
+
+
     }
 
     private void setData(int count, float range) {
 
         ArrayList<PieEntry> values = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
-            values.add(new PieEntry((float) ((Math.random() * range) + range / 5), parties[i % parties.length]));
-        }
 
-        PieDataSet dataSet = new PieDataSet(values, "Election Results");
+        String[] split = result.split("\\s+");
+        float accuracy = 0,blunder=0,mistakes=0,goodMoves=0;
+
+        System.out.println(split.length + " split.length ");
+
+
+        for(int i=1; i < split.length; i++){
+            try {
+                float f = Float.parseFloat(split[i]) - Float.parseFloat(split[i-1]);
+                if(f > 2)
+                    blunder++;
+                else if(f > 1 && f <= 2){
+                    mistakes++;
+                }
+                else
+                    goodMoves++;
+//                System.out.println(f + " debugsss1 ");
+            }
+            catch (Exception e){
+
+            }
+        }
+        System.out.println("debugsss " + (((blunder/(float)split.length) * range)  + range/5));
+        values.add(new PieEntry((float) (((goodMoves/(float)split.length) * range)  + range/5) , parties[0]));
+        values.add(new PieEntry((float) (((mistakes/(float)split.length) * range)  + range/5), parties[1]));
+        values.add(new PieEntry((float) (((blunder/(float)split.length) * range)  + range/5), parties[2]));
+
+        PieDataSet dataSet = new PieDataSet(values, "Game Analysis");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
 

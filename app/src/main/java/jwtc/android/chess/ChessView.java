@@ -1227,6 +1227,7 @@ public class ChessView extends UI {
         }
         int state = _jni.getState();
         int res = chessStateToR(state);
+
         turn = _jni.getTurn();
 
         if (turn == ChessBoard.WHITE) {
@@ -1469,7 +1470,26 @@ public class ChessView extends UI {
             result.append(" 10000.0");
             sendData();
         }
+        int state = _jni.getState();
+        int res = chessStateToR(state);
+        if(res == R.string.state_draw_repeat){
+            result.append(" 5001 ");
+            sendData();
+        }
+        else if(res == R.string.state_draw_50){
+            result.append(" 5002 ");
+            sendData();
 
+        }
+        else if(res == R.string.state_draw_material){
+            result.append(" 5003 ");
+            sendData();
+
+        }
+        else if(res == R.string.state_draw_stalemate){
+            result.append(" 5004 ");
+            sendData();
+        }
 
 
         if (sMove.length() > 3 && !sMove.equals("O-O-O")) {
