@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -86,12 +87,14 @@ public class start extends AppCompatActivity {
 	/**
 		 * Called when the activity is first created.
 		 */
+
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 
 			SharedPreferences getData = getSharedPreferences("ChessPlayer", Context.MODE_PRIVATE);
 			String myLanguage = getData.getString("localelanguage", "");
+
 
 			Locale current = getResources().getConfiguration().locale;
 			String language = current.getLanguage();
@@ -107,6 +110,9 @@ public class start extends AppCompatActivity {
 					getBaseContext().getResources().getDisplayMetrics());
 
 			setContentView(R.layout.start);
+
+			RelativeLayout rl = findViewById(R.id.startBackground);;
+			rl.setBackgroundColor(Color.rgb(0,0,0));
 
 			if (getIntent().getBooleanExtra("RESTART", false)) {
 				finish();
@@ -130,6 +136,7 @@ public class start extends AppCompatActivity {
 
 
 /*
+
 			_list = (ListView) findViewById(R.id.ListStart);
 			_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
@@ -213,21 +220,21 @@ public class start extends AppCompatActivity {
 		bmbStart = findViewById(R.id.bmbStart);
 
 		bmbStart.setAutoBoom(true);
+
 //		bmbStart.setUse3DTransformAnimation(true);
 
-		bmbStart.setNormalColor(Color.parseColor("#8B4513"));
-
+		bmbStart.setNormalColor(Color.argb(100,0,0,0));
 		String val[] = new String[]{
 				"Play", "Practice", "Puzzles", "About Developer"
 		};
-		String colorString = "#D3D3D3";
+		String colorString = "#008000";
 
 		bmbStart.clearBuilders();
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.play_chess)
 				.normalTextRes(R.string.text_ham_play)
                 .pieceColor(Color.parseColor(colorString))
-				.normalColor(Color.argb(100,205,133,63))
+				.normalColor(Color.argb(200,50,205,50))
 				.listener(new OnBMClickListener() {
 					@Override
 					public void onBoomButtonClick(int index){
@@ -243,7 +250,7 @@ public class start extends AppCompatActivity {
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.practice_chess)
 				.normalTextRes(R.string.text_ham_practice)
-				.normalColor(Color.argb(100,205,133,63))
+				.normalColor(Color.argb(200,255,215,0))
                 .pieceColor(Color.parseColor(colorString))
 				.listener(new OnBMClickListener() {
 					@Override
@@ -259,7 +266,7 @@ public class start extends AppCompatActivity {
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.puzzles_chess)
 				.normalTextRes(R.string.text_ham_puzzles)
-				.normalColor(Color.argb(100,205,133,63))
+				.normalColor(Color.argb(200,0,191,255))
                 .pieceColor(Color.parseColor(colorString))
 				.listener(new OnBMClickListener() {
 					@Override
@@ -274,7 +281,7 @@ public class start extends AppCompatActivity {
 		bmbStart.addBuilder(new HamButton.Builder()
 				.normalImageRes(R.drawable.about_dev)
 				.normalTextRes(R.string.text_ham_about)
-				.normalColor(Color.argb(100,205,133,63))
+				.normalColor(Color.argb(200,220,20,60))
                 .pieceColor(Color.parseColor(colorString))
 				.listener(new OnBMClickListener() {
 					@Override

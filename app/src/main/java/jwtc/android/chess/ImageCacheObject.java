@@ -1,5 +1,9 @@
 package jwtc.android.chess;
 
+import android.graphics.Color;
+
+import androidx.annotation.ColorRes;
+
 public class ImageCacheObject{
 	
 	public int _piece, _color, _fieldColor;
@@ -9,6 +13,5 @@ public class ImageCacheObject{
 	public static boolean _flippedBoard = false;
 	
 	public ImageCacheObject(){
-		
 	}
 }

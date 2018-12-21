@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -67,6 +68,8 @@ public class ChessViewBase{
 		_mainLayout = _activity.findViewById(R.id.LayoutMain);
 
 		_arrImages[0] = (ChessImageView)_activity.findViewById(R.id.a8);
+		_arrImages[0].setBackgroundColor(Color.RED);
+		_arrImages[0].setDrawingCacheBackgroundColor(Color.RED);
 		_arrImages[1] = (ChessImageView)_activity.findViewById(R.id.b8);
 		_arrImages[2] = (ChessImageView)_activity.findViewById(R.id.c8);
 		_arrImages[3] = (ChessImageView)_activity.findViewById(R.id.d8);
@@ -195,20 +198,27 @@ public class ChessViewBase{
 
 		}
 
-		// yellow
-		ChessImageView._arrColorScheme[0][0] = 0xffdeac5d;
-		ChessImageView._arrColorScheme[0][1] = 0xfff9e3c0;
-		ChessImageView._arrColorScheme[0][2] = 0xccf3ed4b;
+
+
+//		ChessImageView._arrColorScheme[0][0] = Color.rgb(185,142,97);
+		ChessImageView._arrColorScheme[0][0] = Color.rgb(105,105,105);
+		ChessImageView._arrColorScheme[0][1] = Color.rgb(234,221,207);
+		ChessImageView._arrColorScheme[0][2] = 0xcc9ff3b4;
+
+		// green
+//		ChessImageView._arrColorScheme[0][0] = 0xff8eb59b;
+//		ChessImageView._arrColorScheme[0][1] = 0xffcae787;
+//		ChessImageView._arrColorScheme[0][2] = 0xcc9ff3b4;
 
 		// blue
 		ChessImageView._arrColorScheme[1][0] = 0xff28628b;
 		ChessImageView._arrColorScheme[1][1] = 0xff7dbdea;
 		ChessImageView._arrColorScheme[1][2] = 0xcc9fdef3;
 
-		// green
-		ChessImageView._arrColorScheme[2][0] = 0xff8eb59b;
-		ChessImageView._arrColorScheme[2][1] = 0xffcae787;
-		ChessImageView._arrColorScheme[2][2] = 0xcc9ff3b4;
+		// yellow
+		ChessImageView._arrColorScheme[2][0] = 0xffdeac5d;
+		ChessImageView._arrColorScheme[2][1] = 0xfff9e3c0;
+		ChessImageView._arrColorScheme[2][2] = 0xccf3ed4b;
 
 		// grey
 		ChessImageView._arrColorScheme[3][0] = 0xffc0c0c0;
