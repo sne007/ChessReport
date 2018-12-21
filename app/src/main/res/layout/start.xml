@@ -5,6 +5,7 @@
 	android:id="@+id/startBackground"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+    android:background="@drawable/queenblack"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	tools:context=".start">
 
@@ -18,16 +19,6 @@
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
 		/>
-
-
-<!--
-	<ListView
-		android:id="@+id/ListStart"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:drawSelectorOnTop="false"
-		android:entries="@array/start_menu" />
--->
 
 
 </RelativeLayout>

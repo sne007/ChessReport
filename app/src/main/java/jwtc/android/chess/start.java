@@ -111,8 +111,9 @@ public class start extends AppCompatActivity {
 
 			setContentView(R.layout.start);
 
-			RelativeLayout rl = findViewById(R.id.startBackground);;
-			rl.setBackgroundColor(Color.rgb(0,0,0));
+			RelativeLayout rl = findViewById(R.id.startBackground);
+			rl.getBackground().setAlpha(200);
+
 
 			if (getIntent().getBooleanExtra("RESTART", false)) {
 				finish();
@@ -224,6 +225,7 @@ public class start extends AppCompatActivity {
 //		bmbStart.setUse3DTransformAnimation(true);
 
 		bmbStart.setNormalColor(Color.argb(100,0,0,0));
+
 		String val[] = new String[]{
 				"Play", "Practice", "Puzzles", "About Developer"
 		};
