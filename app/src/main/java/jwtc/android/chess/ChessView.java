@@ -307,7 +307,7 @@ public class ChessView extends UI {
             //butNewGame.setFocusable(false);
             butNewGame.setOnClickListener(new OnClickListener() {
                 public void onClick(View arg0) {
-                    result = new StringBuilder(" ");
+                    result = new StringBuilder(" w ");
                     Intent intent = new Intent();
                     intent.setClass(_parent, options.class);
                     intent.putExtra("requestCode", main.REQUEST_NEWGAME);
@@ -584,10 +584,18 @@ public class ChessView extends UI {
 
         _sPrevECO = null;
 
+
+        Button b = _parent.findViewById(R.id.generateButton);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendData();
+            }
+        });
+
     }
 
     public void sendData(){
-
         Intent intent=new Intent(_parent,boomAnalysisMenu.class);
         intent.putExtra("result",result.toString());
         _parent.startActivity(intent);
@@ -1060,6 +1068,7 @@ public class ChessView extends UI {
 
         _view._showCoords = prefs.getBoolean("showCoords", false);
 
+
         String sEngine = prefs.getString("UCIEngine", null);
         if (sEngine != null) {
             Log.i("ChessView", "UCIEngine " + sEngine);
@@ -1082,6 +1091,13 @@ public class ChessView extends UI {
         _bShowLastMove = prefs.getBoolean("showLastMove", true);
 
         _bPlayAsBlack = prefs.getBoolean("playAsBlack", false);
+
+        if(_bPlayAsBlack){
+            result = new StringBuilder(" b ");
+        }
+        else
+            result = new StringBuilder(" w ");
+
 
         setLevelMode(prefs.getInt("levelMode", LEVEL_TIME));
         _selectedLevel = prefs.getInt("level", 2);

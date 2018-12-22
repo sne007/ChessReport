@@ -1,6 +1,7 @@
 package jwtc.android.chess;
 
 import jwtc.chess.*;
+import jwtc.chess.algorithm.UCIWrapper;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.speech.tts.TextToSpeech;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,6 +66,7 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
     //private String _action;
     private long _lGameID;
     private float _fGameRating;
+    protected UCIWrapper _uci;
 
     private Uri _uriNotification;
     private Ringtone _ringNotification;
@@ -117,15 +120,6 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
 
         _gestureDetector = new GestureDetector(this, this);
 
-        Button b = findViewById(R.id.generateButton);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(main.this, boomAnalysisMenu.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

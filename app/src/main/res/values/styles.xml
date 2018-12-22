@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bgColorText">#ff484848</color><!-- 404040, 333355, 555555 -->
+    <color name="newGame">#ff32CD32</color>
     <color name="bgColorLight">#ffcccccc</color>
     <color name="bgColorMiddle">#ff585858</color>
     <color name="textColor">#ffffffff</color>

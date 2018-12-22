@@ -39,7 +39,7 @@ public class UCIWrapper {
 
 
         try {
-            Log.i(TAG, "intitializing " + sEnginePath);
+            Log.i(TAG, "intitializing stockfish" + sEnginePath);
             // Executes the command.
             _process = Runtime.getRuntime().exec(sEnginePath);
 
