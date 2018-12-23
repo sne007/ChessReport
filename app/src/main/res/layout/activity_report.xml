@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:backgroundTint="#ffffff">
 
     <LinearLayout
@@ -14,13 +14,17 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
-            android:layout_height="800dp" />
+            android:layout_height="500dp" />
 
         <!-- THIS IS JUST A PLACEHOLDER -->
 
         <TextView
+            android:id="@+id/pieTitle"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="200dp"
+            android:backgroundTint="#ffffff"
+            android:textColor="#ff0000"
+            android:textSize="30sp"
             android:gravity="center"
             android:text="@string/PieViewEnd" />
 

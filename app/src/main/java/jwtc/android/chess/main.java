@@ -322,8 +322,6 @@ public class main extends ChessActivity implements OnInitListener, GestureDetect
     @Override
     protected void onResume() {
 
-        Log.i("main", "onResume");
-
         //Debug.startMethodTracing("chessplayertrace");
 
         SharedPreferences prefs = this.getPrefs();

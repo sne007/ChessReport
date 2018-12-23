@@ -111,6 +111,8 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         pieChart.setEntryLabelTextSize(12f);
 
 
+        System.out.println(result + " impres ");
+        System.out.println( " helloo ");
 
     }
 
@@ -122,8 +124,6 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         String[] split = result.split("\\s+");
         float accuracy = 0,blunder=0,mistakes=0,goodMoves=0;
 
-        System.out.println(split.length + " split.length " + split[0] + " first " + split[1] + " " + split[2]);
-        System.out.println(result + " split.length");
         boolean isBlack = false;
         if(split[0] == "b")
             isBlack = true;
@@ -131,11 +131,11 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         for(int i=1; i < split.length; i++){
             try {
                 float f = Float.parseFloat(split[i]) - Float.parseFloat(split[i-1]);
-                if(f > 2){
+                if(f > 2.0f){
                     blunder++;
                     System.out.println(" tis a blunder " + split[i]);
                 }
-                else if(f > 1 && f <= 2){
+                else if(f > 1.0f && f <= 2.0){
                     mistakes++;
                     System.out.println(" tis a mistake " + split[i]);
                 }
@@ -152,7 +152,29 @@ public class Report extends DemoBase implements SeekBar.OnSeekBarChangeListener 
         }
         values.add(new PieEntry((float) (((goodMoves/(float)split.length) * range)) , parties[0]));
         values.add(new PieEntry((float) (((mistakes/(float)split.length) * range)), parties[1]));
-        values.add(new PieEntry((float) ((((blunder - 1)/(float)split.length) * range)), parties[2]));
+        values.add(new PieEntry((float) ((((blunder)/(float)split.length) * range)), parties[2]));
+
+        TextView title = findViewById(R.id.pieTitle);
+        float _pGoodMove = ((((goodMoves + mistakes)/(float)(split.length - 2)) * range));
+        float _pMistakeMove = ((((goodMoves + mistakes)/(float)(split.length - 2)) * range));
+        float _pBlunderMove = ((((goodMoves + mistakes)/(float)(split.length - 2)) * range));
+
+
+        if(_pGoodMove >= 90.0f)
+            title.setText("Chess Expert");
+        else if(((((goodMoves + mistakes)/(float)(split.length - 2)) * range)) >= 70.0f){
+            title.setText("Tournament Player");
+        }
+        else if(((((goodMoves + mistakes)/(float)(split.length - 2)) * range)) >= 60.0f){
+            title.setText("Advanced Beginner");
+        }
+        else if(((((goodMoves + mistakes)/(float)(split.length - 2)) * range)) >= 50.0f){
+            title.setText("Beginner");
+        }
+        else {
+            title.setText("Newbiee");
+        }
+
 
         PieDataSet dataSet = new PieDataSet(values, "Game Analysis");
         dataSet.setSliceSpace(3f);

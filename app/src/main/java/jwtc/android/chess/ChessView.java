@@ -1475,6 +1475,7 @@ public class ChessView extends UI {
     public void playNotification() {
 
         int move = _jni.getMyMove();
+        System.out.println(" trueres " + _jni.getBoardValue());
         String sMove = _jni.getMyMoveToString();
 
         if (sMove.contains("x")){
